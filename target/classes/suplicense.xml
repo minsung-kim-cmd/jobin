@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="suplicensens">
+<resultMap type="suplicense" id="suplicenseResult">
+	<result property="licenseCode" column="licenseCode"/>
+	<result property="resumeCode" column="resumeCode"/>
+	<result property="rLicense" column="rLicense"/>
+	<result property="rLicenseissuer" column="rLicenseissuer"/>
+	<result property="rLicenseacq" column="rLicenseacq"/>
+</resultMap>
+<insert id="insert1" parameterType="suplicense">
+	insert into suplicense values(#{licenseCode},#{resumeCode},#{rLicense},#{rLicenseissuer},#{rLicenseacq})
+</insert>
+</mapper>

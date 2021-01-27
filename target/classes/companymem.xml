@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="companymemns">
+<resultMap type="companymem" id="companymemResult">
+	<result property="companyCode" 		column="companyCode"/>
+	<result property="cId" 	column="cId"/>
+	<result property="cPassword" 	column="cPassword"/>
+	<result property="cRegistrationNum" 	column="cRegistrationNum"/>
+	<result property="cName" 	column="cName"/>
+	<result property="cType" column="cType"/>
+	<result property="cRepresentative" column="cRepresentative"/>
+	<result property="cAddress" 		column="cAddress"/>
+	<result property="cTel" 	column="cTel"/>
+	<result property="cEmail" column="cEmail"/>
+	<result property="cBusiness" 		column="cBusiness"/>
+	<result property="cHomepage" column="cHomepage"/>
+	<result property="cSales" 		column="cSales"/>
+	<result property="cEstablishDate" 		column="cEstablishDate"/>
+	<result property="cLogo" 		column="cLogo"/>
+	<result property="cAttention" 		column="cAttention"/>
+	<result property="cJobposting" 		column="cJobposting"/>
+	<result property="cEmpcount" 		column="cEmpcount"/>
+	<result property="cSector" 		column="cSector"/>
+	<result property="cDel" 		column="cDel"/>
+</resultMap>
+<select id="select2" parameterType="string" resultType="companymem">
+	select * from companymem where cId=#{cId}
+</select>
+<select id="select3" parameterType="integer" resultType="companymem">
+	select * from companymem where companyCode=#{companyCode}
+</select>
+<insert id="insert2" parameterType="companymem">
+<selectKey keyProperty="companyCode" order="BEFORE" resultType="integer">
+		select nvl(max(companyCode),0) + 1 companyCode from companymem
+	</selectKey>
+	insert into companymem (companyCode, cId, cRepresentative, cPassword, cName, cRegistrationNum, 
+		cTel, cDel, cSales, cAttention, cJobposting, cEmpcount) values 
+		(#{companyCode}, #{cId}, #{cRepresentative}, #{cPassword}, #{cName}, #{cRegistrationNum}, 
+			#{cTel}, 'n', 0, 0, 0, 0)
+</insert>
+<select id="list2" resultMap="companymemResult">
+	select * from companymem order by companyCode desc
+</select>
+<select id="selectMember2" parameterType="integer"
+	resultType="companymem">
+	select * from companymem where companyCode = #{companyCode}
+	</select>
+<select id="find2" parameterType="companymem"
+	resultType="companymem">
+	select * from companymem where cName=#{cName} and cEmail=#{cEmail}
+	</select>
+<select id="find22" parameterType="companymem"
+		resultType="companymem">
+		select * from companymem where cId=#{cId} and cTel=#{cTel}
+		</select>
+</mapper>
+
+
+

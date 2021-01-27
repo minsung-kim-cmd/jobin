@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="licensens">
+<resultMap type="license" id="licenseResult">
+	<result property="licenseCode" column="licenseCode"/>
+	<result property="resumeCode" column="resumeCode"/>
+	<result property="rLicense" column="rLicense"/>
+	<result property="rLicenseissuer" column="rLicenseissuer"/>
+	<result property="rLicenseacq" column="rLicenseacq"/>
+</resultMap>
+<insert id="insert" parameterType="license">
+	insert into license values(ex_licensecode.nextval,ex_resumecode,#{rLicense},
+	#{rLicenseissuer},#{rLicenseacq})
+</insert>
+<select id="licenseView" parameterType="integer" resultMap="licenseResult">
+	select * from license where resumecode=#{resumeCode}
+</select>
+</mapper>

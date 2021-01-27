@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="companyreviewns">
+<resultMap type="companyreview" id="companyreviewResult">
+	<result property="reviewCode" column="reviewCode"/>
+	<result property="companyCode" column="companyCode"/>
+	<result property="memberCode" column="memberCode"/>
+	<result property="vJob" column="vJob"/>
+	<result property="vWorkstatus" column="vWorkstatus"/>
+	<result property="vWorkarea" column="vWorkarea"/>
+	<result property="vRegister" column="vRegister"/>
+	<result property="vStarscore" column="vStarscore"/>
+	<result property="vContent" column="vContent"/>
+</resultMap>
+<select id="selectList3" parameterType="hashMap" resultMap="companyreviewResult">
+	select * from companyreview where companyCode=#{companyCode} order by vRegister desc
+</select>
+<insert id="insertReview3" parameterType="companyreview">
+	insert into Companyreview values(companyreview_seq.nextval,#{companyCode},#{memberCode},#{vJob},
+	#{vWorkstatus},#{vWorkarea},sysdate,#{vStarscore},#{vContent});
+</insert>
+<update id="updateReview3" parameterType="companyreview">
+	update Companyreview set vJob=#{vJob},vWorkstatus=#{vWorkstatus},vWorkarea=#{vWorkarea},vRegister=#{vRegister},
+	vStarscore=#{vStarscore},vContent=#{vContent} where companyCode=#{companyCode} and memberCode=#{memberCode}
+</update>
+<delete id="deleteReview3" parameterType="int">
+	delete from Companyreview where reviewCode=#{reviewCode}
+</delete>
+</mapper>

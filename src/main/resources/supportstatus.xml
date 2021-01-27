@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="supportstatusns">
+<resultMap type="supportstatus" id="supportstatusResult">
+	<result property="resumeCode" column="resumeCode"/>
+	<result property="companyname" column="companyname"/>
+	<result property="subject" column="subject"/>
+	<result property="applydate" column="applydate"/>
+	<result property="applycount" column="applycount"/>
+	<result property="cancel" column="cancel"/>
+	<result property="open" column="open"/>
+	<result property="jobPostCode" column="jobPostCode"/>
+	<result property="memberCode" column="memberCode"/>
+	<result property="sNum" column="sNum"/>	<!-- SupportStatus_seq -->
+   <result property="rName" column="rName"/>
+   <result property="rEmail" column="rEmail"/>
+   <result property="rTel" column="rTel"/>
+   <result property="rAddress" column="rAddress"/>
+   <result property="rPicture" column="rPicture"/>
+   <result property="rMilitary" column="rMilitary"/>
+   <result property="rHighname" column="rHighname"/>
+   <result property="rHighmajor" column="rHighmajor"/>
+   <result property="rUniname" column="rUniname"/>
+   <result property="rUnimajor" column="rUnimajor"/>
+   <result property="rUniminor" column="rUniminor"/>
+   <result property="rUnitime" column="rUnitime"/>
+   <result property="rUnicredit" column="rUnicredit"/>
+   <result property="rUnithesis" column="rUnithesis"/>
+   <result property="rWishjobtype" column="rWishjobtype"/>
+   <result property="rWishsal" column="rWishsal"/>
+   <result property="rWisharea" column="rWisharea"/>
+   <result property="rWishjob" column="rWishjob"/>
+   <result property="rGender" column="rGender"/>
+   <result property="rBirth" column="rBirth"/>
+   <result property="rUnidivi" column="rUnidivi"/>
+   <result property="rHighgradu" column="rHighgradu"/>
+   <result property="rHighadmi" column="rHighadmi"/>
+   <result property="rUnigradu" column="rUnigradu"/>
+   <result property="rUniadmi" column="rUniadmi"/>
+   <result property="rSubject" column="rSubject"/>
+   <result property="rCareer" column="rCareer"/>
+   <result property="keyword" column="keyword"/>
+   <result property="companyCode" column="companyCode"/>
+   <result property="pass" column="pass"/>
+</resultMap>
+<insert id="supportInsert1" parameterType="supportstatus">
+	insert into supportstatus values(#{resumeCode},#{companyname},#{subject},sysdate,0,'n','n',#{jobPostCode},#{memberCode},SupportStatus_seq.nextval,
+	#{rName, jdbcType=VARCHAR},#{rEmail, jdbcType=VARCHAR},#{rTel, jdbcType=VARCHAR},#{rAddress, jdbcType=VARCHAR},#{rPicture, jdbcType=VARCHAR},#{rMilitary, jdbcType=CHAR},
+	#{rHighname, jdbcType=VARCHAR},#{rHighmajor, jdbcType=VARCHAR},#{rUniname, jdbcType=VARCHAR},#{rUnimajor, jdbcType=VARCHAR},#{rUniminor, jdbcType=VARCHAR},#{rUnitime, jdbcType=CHAR},
+	#{rUnicredit},#{rUnithesis, jdbcType=VARCHAR},#{rWishjobtype, jdbcType=VARCHAR},#{rWishsal},#{rWisharea, jdbcType=VARCHAR},#{rWishjob, jdbcType=VARCHAR},#{rGender, jdbcType=CHAR},
+	#{rBirth},#{rUnidivi},#{rHighgradu},#{rHighadmi},
+	#{rUnigradu},#{rUniadmi},#{rSubject, jdbcType=VARCHAR},#{rCareer, jdbcType=CHAR},#{keyword, jdbcType=VARCHAR},#{companyCode},'n') 
+</insert>
+<select id="supList1" parameterType="integer" resultMap="supportstatusResult">
+	select applydate,companyname,subject,open,sNum,jobPostCode from supportstatus where memberCode=#{memberCode}
+</select>
+<delete id="supportDelete1" parameterType="integer">
+	delete from supportstatus where sNum=#{sNum}
+</delete>
+<select id="selectApply3" parameterType="hashMap" resultMap="supportstatusResult">
+	select * from supportstatus
+	<if test="companyCode!=0"> where companyCode=#{companyCode}	</if>
+	order by applydate desc
+</select>
+<select id="select3" parameterType="int" resultType="supportstatus">
+	select * from supportstatus where sNum=#{sNum}
+</select>
+<update id="pass3" parameterType="int">
+	update supportstatus set pass='y' where sNum=#{sNum}
+</update>
+<update id="fail3" parameterType="int">
+	update supportstatus set pass='n' where sNum=#{sNum}
+</update>
+</mapper>

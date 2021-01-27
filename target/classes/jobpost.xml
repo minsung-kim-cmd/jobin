@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jobpostns">
+	<resultMap type="jobpost" id="jobpost">
+		<result property="jobPostCode" column="jobPostCode" />
+		<result property="companyCode" column="companyCode" />
+		<result property="cName" column="cName" />
+		<result property="occupation" column="occupation" />
+		<result property="dept" column="dept" />
+		<result property="position" column="position" />
+		<result property="career" column="career" />
+		<result property="careerDateA" column="careerDateA" />
+		<result property="numOfPeo" column="numOfPeo" />
+		<result property="preferential" column="preferential" />
+		<result property="finalEdu" column="finalEdu" />
+		<result property="major" column="major" />
+		<result property="sal" column="sal" />
+		<result property="workTime" column="workTime" />
+		<result property="workWeek" column="workWeek" />
+		<result property="jobtype" column="jobtype" />
+		<result property="workarea" column="workarea" />
+		<result property="ageLimit" column="ageLimit" />
+		<result property="jSubject" column="jSubject" />
+		<result property="jWelfare" column="jWelfare" />
+		<result property="jContent" column="jContent" />
+		<result property="jRegister" column="jRegister" />
+		<result property="closing" column="closing" />
+		<result property="applicantNum" column="applicantNum" />
+		<result property="keyword" column="keyword" />
+		<result property="regStatus" column="regStatus" />
+		<result property="cLogo" column="cLogo" />
+		<result property="readCnt" column="readCnt" />
+		<result property="managerName" column="managerName" />
+		<result property="managerTel" column="managerTel" />
+		<result property="managerEmail" column="managerEmail" />
+		<result property="careerDateB" column="careerDateB" />
+		<result property="finalEduConf" column="finalEduConf" />
+		<result property="resumeCode" column="resumeCode" />
+		<result property="startRow" column="startRow" />
+		<result property="endRow" column="endRow" />
+		<result property="searchKeyword" column="searchKeyword" />
+		<result property="search" column="search" />
+		<result property="cHomepage" column="cHomepage" />
+	</resultMap>
+	<select id="atcname1" parameterType="integer"
+		resultType="string">
+		select distinct cName from jobpost where
+		companyCode=#{companyCode}
+	</select>
+	<select id="atjobcnt1" parameterType="integer"
+		resultType="integer">
+		select count(*) from jobpost where
+		companyCode=#{companyCode} and regStatus='n'
+	</select>
+	<select id="addpost1" parameterType="integer"
+		resultMap="jobpost">
+		select
+		cName,closing,jSubject,career,finalEdu,workarea,jobtype,regStatus,companyCode
+		from jobpost where jobPostCode=#{jobPostCode}
+	</select>
+	<select id="getTotal4" parameterType="jobpost" resultType="int">
+	select count(*) from jobpost
+	<where>
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			jSubject like '%'||#{searchKeyword}||'%' or
+			cName like '%'||#{searchKeyword}||'%'
+			<!-- <if test="search!=null or search!=''">
+			 or
+			${search} like '%'||#{keyword}||'%'
+			</if> -->
+		</if>
+	</where>
+</select>
+<select id="list4" parameterType="jobpost" resultMap="jobpost">
+	select * from (select a.*,rowNum rn from (
+		select * from jobpost 
+		order by jobpostCode desc) a) 
+		where rn between #{startRow} and #{endRow}
+		<if test="searchKeyword != null and searchKeyword != ''">
+		 and 
+		(jSubject like '%'||#{searchKeyword}||'%' or cName like '%'||#{searchKeyword}||'%')
+		</if>
+</select>
+<select id="maxNum4" resultType="integer">
+	select nvl(max(num),0) + 1 from jobpost
+</select>
+<update id="updateReadCnt4" parameterType="int">
+	update jobpost set readCnt = readCnt + 1 where jobPostCode=#{jobPostCode}
+</update>
+<insert id="insert3" parameterType="jobpost">
+	insert into jobpost values(jobpost_seq.NEXTVAL,#{companyCode},#{cName},#{occupation},#{dept},#{position},#{career},
+	#{careerDateA},#{numOfPeo},#{preferential},#{finalEdu},#{major},#{sal},#{workTime},
+	#{workWeek},#{jobtype},#{workarea},#{ageLimit},#{jSubject},<if test="jWelfare==null">null</if><if test="jWelfare!=null">#{jWelfare}</if>,#{jContent},sysdate,
+	#{closing},#{applicantNum},#{keyword},'n',#{cLogo},#{readCnt},#{managerName},#{managerTel},#{managerEmail},#{careerDateB},
+	<if test="finalEduConf==null">'n'</if><if test="finalEduConf!=null">#{finalEduConf}</if>,null,null,null,null,null,#{cHomepage})
+</insert>
+<select id="jobpostList3" parameterType="hashMap" resultMap="jobpost">
+	select * from jobpost
+	<if test="companyCode!=0"> where companyCode=#{companyCode}	</if>
+	order by jRegister desc
+</select>
+<delete id="delete3" parameterType="int">
+	delete from jobpost where jobPostCode=#{jobPostCode}
+</delete>
+<select id="select3" parameterType="int" resultType="jobpost">
+	select * from jobpost where jobPostCode=#{jobPostCode}
+</select>
+<update id="update3" parameterType="jobpost">
+	update jobpost set occupation=#{occupation},dept=#{dept},position=#{position},career=#{career},careerDateA=#{careerDateA},
+	numOfPeo=#{numOfPeo},preferential=#{preferential},finalEdu=#{finalEdu},major=#{major},sal=#{sal},workTime=#{workTime},workWeek=#{workWeek},jobtype=#{jobtype},workarea=#{workarea},
+	ageLimit=#{ageLimit},jSubject=#{jSubject},jWelfare=#{jWelfare},jContent=#{jContent},
+	closing=#{closing},applicantNum=#{applicantNum},keyword=#{keyword},managerName=#{managerName},managerTel=#{managerTel},managerEmail=#{managerEmail},
+	careerDateB=#{careerDateB},finalEduConf=#{finalEduConf} where jobPostCode=#{jobPostCode}
+</update>
+<update id="endEmp3" parameterType="int">
+	update jobpost set regStatus='y' where jobPostCode=#{jobPostCode}
+</update>
+</mapper>

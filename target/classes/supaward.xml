@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="supawardns">
+<resultMap type="supaward" id="supawardResult">
+	<result property="awardCode" column="awardCode"/>
+	<result property="resumeCode" column="resumeCode"/>
+	<result property="rAwards" column="rAwards"/>
+	<result property="rAwardissuer" column="rAwardissuer"/>
+	<result property="rAwarddate" column="rAwarddate"/>
+	<result property="rAwarded" column="rAwarded"/>
+</resultMap>
+<insert id="insert1" parameterType="supaward">
+	insert into supaward values(#{awardCode},#{resumeCode},#{rAwards},#{rAwardissuer},#{rAwarddate},#{rAwarded})
+</insert>
+</mapper>

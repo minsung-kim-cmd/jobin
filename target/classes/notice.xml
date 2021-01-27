@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticens">
+<resultMap type="notice" id="noticeResult">
+	<result property="noticeCode" column="noticeCode"/>
+	<result property="nSubject" column="nSubject"/>
+	<result property="nWriter" column="nWriter"/>
+	<result property="nContent" column="nContent"/>
+	<result property="nRegister" column="nRegister"/>
+	<result property="nDel" column="nDel"/>
+	<result property="nReadcount" column="nReadcount"/>
+</resultMap>
+<select id="getTotal2" parameterType="notice" resultType="integer">
+	select count(*) from notice
+	<!-- <where>
+		<if test="keyword!=null and keyword!=''">
+			<if test="search=='subcon'">
+				nSubject like '%'||#{keyword}||'%' or
+				nContent like '%'||#{keyword}||'%' 
+			</if>
+			<if test="search!='subcon'">
+				${search} like '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</where> -->
+</select>
+<select id="list2" parameterType="notice" resultMap="noticeResult">
+      select * from notice order by noticeCode desc
+</select>
+<insert id="insert2" parameterType="notice">
+<!-- 	insert into notice values(#{nSubject}, 
+		#{nWriter}, #{nContent})
+</insert>  -->
+	<selectKey keyProperty="noticeCode" order="BEFORE" resultType="integer">
+		select nvl(max(noticeCode),0) + 1 noticeCode from notice
+	</selectKey>
+	insert into notice(noticeCode, nSubject, nWriter, nContent,
+		nRegister, nDel, nReadcount) values 
+		(#{noticeCode}, #{nSubject}, #{nWriter}, #{nContent},
+			sysdate, 'n', 0)
+</insert>
+<insert id="updatenReadCount2" parameterType="integer">
+	update notice set nReadcount = nReadcount + 1 where noticeCode=#{noticeCode}
+</insert>
+<select id="select2" parameterType="int" resultType="notice">
+	select * from notice where noticeCode=#{noticeCode}
+</select>
+<update id="update2" parameterType="notice">
+	update notice set nSubject=#{nSubject}, nWriter=#{nWriter},
+		nContent=#{nContent} where noticeCode=#{noticeCode}
+</update>
+<delete id="delete2" parameterType="int">
+	update notice set nDel='y' where noticeCode=#{noticeCode}
+</delete>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="companymem" type="com.fn.jobin.model.Companymem"/>
+		<typeAlias alias="companyreview" type="com.fn.jobin.model.Companyreview"/>
+		<typeAlias alias="jobpost" type="com.fn.jobin.model.Jobpost"/>
+		<typeAlias alias="mbr" type="com.fn.jobin.model.Mbr"/>
+		<typeAlias alias="notice" type="com.fn.jobin.model.Notice"/>
+		<typeAlias alias="qna" type="com.fn.jobin.model.Qna"/>
+		<typeAlias alias="rsm" type="com.fn.jobin.model.Rsm"/>
+		<typeAlias alias="self" type="com.fn.jobin.model.Self"/>
+		<typeAlias alias="career" type="com.fn.jobin.model.Career"/>
+		<typeAlias alias="award" type="com.fn.jobin.model.Award"/>
+		<typeAlias alias="portfolio" type="com.fn.jobin.model.Portfolio"/>
+		<typeAlias alias="license" type="com.fn.jobin.model.License"/>
+		<typeAlias alias="supportstatus" type="com.fn.jobin.model.SupportStatus"/>
+		<typeAlias alias="supself" type="com.fn.jobin.model.SupSelf"/>
+		<typeAlias alias="supcareer" type="com.fn.jobin.model.SupCareer"/>
+		<typeAlias alias="supaward" type="com.fn.jobin.model.SupAward"/>
+		<typeAlias alias="supportfolio" type="com.fn.jobin.model.SupportStatus"/>
+		<typeAlias alias="suplicense" type="com.fn.jobin.model.SupLicense"/>
+		<typeAlias alias="support" type="com.fn.jobin.model.Support"/>
+		<typeAlias alias="scrap" type="com.fn.jobin.model.Scrap"/>
+		<typeAlias alias="jobopen" type="com.fn.jobin.model.Jobopen"/>
+	</typeAliases>
+	<mappers>
+		<mapper	resource="companymem.xml" />
+		<mapper	resource="companyreview.xml" />
+		<mapper	resource="jobpost.xml" />
+		<mapper	resource="mbr.xml" />
+		<mapper	resource="notice.xml" />
+		<mapper	resource="qna.xml" />
+		<mapper	resource="rsm.xml" />
+		<mapper	resource="self.xml" />
+		<mapper	resource="supportstatus.xml" />
+		<mapper	resource="career.xml" />
+		<mapper	resource="award.xml" />
+		<mapper	resource="portfolio.xml" />
+		<mapper	resource="license.xml" />
+		<mapper	resource="supself.xml" />
+		<mapper	resource="supcareer.xml" />
+		<mapper	resource="supaward.xml" />
+		<mapper	resource="supportfolio.xml" />
+		<mapper	resource="suplicense.xml" />
+		<mapper	resource="support.xml" />
+		<mapper	resource="scrap.xml" />
+		<mapper	resource="jobopen.xml" />
+	</mappers>
+</configuration>

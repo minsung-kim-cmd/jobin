@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scrapns">
+<resultMap type="scrap" id="Result">
+	<result property="scrapCode" 		column="scrapCode"/>
+	<result property="jobPostCode" 		column="jobPostCode"/>
+	<result property="memberCode" 		column="memberCode"/>
+	<result property="cName" 		column="cName"/>
+	<result property="closing" 		column="closing"/>
+	<result property="jSubject" 		column="jSubject"/>
+	<result property="career" 		column="career"/>
+	<result property="finalEdu" 		column="finalEdu"/>
+	<result property="workarea" 		column="workarea"/>
+	<result property="jobtype" 		column="jobtype"/>
+	<result property="regStatus" 		column="regStatus"/>
+</resultMap>
+<select id="cnt" parameterType="integer" resultType="int">
+	select count(*) from scrap where memberCode=#{memberCode}
+</select>
+<select id="list" parameterType="integer" resultMap="Result">
+	select * from scrap where memberCode=#{memberCode}
+</select>
+<delete id="delete" parameterType="integer">
+	delete from scrap where scrapCode=#{scrapCode}
+</delete>
+<select id="jpcList" parameterType="integer" resultType="integer">
+	select jobPostCode from scrap where memberCode=#{memberCode}
+</select>
+<insert id="insertscrap" parameterType="scrap">
+	insert into scrap values(ex_ScrapCode.nextval,#{jobPostCode},#{memberCode},
+	#{cName},#{closing},#{jSubject},#{career},#{finalEdu},#{workarea},#{jobtype},#{regStatus})
+</insert>
+</mapper>
+
+
+

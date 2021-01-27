@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="selfns">
+<resultMap type="self" id="selfResult">
+	<result property="selfCode" column="selfCode"/>
+	<result property="selfContent" column="selfContent"/>
+	<result property="selfSubject" column="selfSubject"/>
+	<result property="resumeCode" column="resumeCode"/>
+</resultMap>
+<select id="selfView" parameterType="integer" resultMap="selfResult">
+	select * from self where resumecode=#{resumeCode}
+</select>
+</mapper>

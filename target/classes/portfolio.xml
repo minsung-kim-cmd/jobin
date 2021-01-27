@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="portfolions">
+<resultMap type="portfolio" id="portfolioResult">
+	<result property="portfolioCode" column="portfolioCode"/>
+	<result property="resumeCode" column="resumeCode"/>
+	<result property="url" column="url"/>
+	<result property="rPortfolio" column="rPortfolio"/>
+</resultMap>
+<insert id="insert" parameterType="portfolio">
+		insert into Portfolio values(ex_portfolioCode.nextval,ex_resumecode,#{url},#{rPortfolio})
+</insert>
+<select id="portView" parameterType="integer" resultMap="portfolioResult">
+	select * from portfolio where resumecode=#{resumeCode}
+</select>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rsmns">
+<resultMap type="rsm" id="rsmResult">
+	<result property="resumeCode" column="resumeCode"/>
+	<result property="rName" column="rName"/>
+	<result property="rEmail" column="rEmail"/>
+	<result property="rTel" column="rTel"/>
+	<result property="rAddress" column="rAddress"/>
+	<result property="rPicture" column="rPicture"/>
+	<result property="rMilitary" column="rMilitary"/>
+	<result property="rHighname" column="rHighname"/>
+	<result property="rHighmajor" column="rHighmajor"/>
+	<result property="rUniname" column="rUniname"/>
+	<result property="rUnimajor" column="rUnimajor"/>
+	<result property="rUniminor" column="rUniminor"/>
+	<result property="rUnitime" column="rUnitime"/>
+	<result property="rUnicredit" column="rUnicredit"/>
+	<result property="rUnithesis" column="rUnithesis"/>
+	<result property="rWishjobtype" column="rWishjobtype"/>
+	<result property="rWishsal" column="rWishsal"/>
+	<result property="rWisharea" column="rWisharea"/>
+	<result property="rWishjob" column="rWishjob"/>
+	<result property="rOpenwhether" column="rOpenwhether"/>
+	<result property="memberCode" column="memberCode"/>
+	<result property="rGender" column="rGender"/>
+	<result property="rBirth" column="rBirth"/>
+	<result property="rUnidivi" column="rUnidivi"/>
+	<result property="rHighgradu" column="rHighgradu"/>
+	<result property="rHighadmi" column="rHighadmi"/>
+	<result property="rUnigradu" column="rUnigradu"/>
+	<result property="rUniadmi" column="rUniadmi"/>
+	<result property="rSubject" column="rSubject"/>
+	<result property="rCareer" column="rCareer"/>
+	<result property="keyword" column="keyword"/>
+</resultMap>
+	<insert id="insert" parameterType="rsm">
+		insert into rsm values(ex_resumeCode.nextval,#{rName},#{rEmail},#{rTel},#{rAddress},#{rPicture},
+		#{rMilitary},#{rHighname},#{rHighmajor},#{rUniname},#{rUnimajor},#{rUniminor},#{rUnitime},
+		#{rUnicredit},#{rUnithesis},#{rWishjobtype},#{rWishsal},#{rWisharea},#{rWishjob},#{rOpenwhether},
+		4,#{rGender},#{rBirth},#{rUnidivi},#{rHighgradu},#{rHighadmi},#{rUnigradu},#{rUniadmi},#{rCareer},#{rSubject},#{keyword})
+	</insert>
+	<select id="rsmsubList" parameterType="integer" resultType="string">
+		select rsubject from rsm where memberCode=#{membercode}
+	</select>
+	<select id="rsmcodeList" parameterType="integer" resultType="integer">
+		select resumecode from rsm where memberCode=#{membercode}
+	</select>
+	<select id="rsmView" parameterType="integer" resultMap="rsmResult">
+		select * from rsm where resumeCode=#{resumeCode}
+	</select>
+	<select id="rsmCnt" parameterType="integer" resultType="integer">
+		select count(*) from rsm where memberCode=#{memberCode}
+	</select>
+	<delete id="rsmDelete" parameterType="map">
+		delete from rsm where memberCode=#{memberCode} and resumeCode=#{resumeCode}
+	</delete>
+</mapper>

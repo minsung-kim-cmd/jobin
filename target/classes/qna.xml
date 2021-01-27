@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnans">
+	<resultMap type="qna" id="qnaResult">
+		<result property="qnaCode" column="qnaCode" />
+		<result property="qSubject" column="qSubject" />
+		<result property="qWriter" column="qWriter" />
+		<result property="qContent" column="qContent" />
+		<result property="qDel" column="qDel" />
+		<result property="qRegister" column="qRegister" />
+		<result property="qRe_step" column="qRe_step" />
+		<result property="qReadcount" column="qReadcount" />
+		<result property="mId" column="mId" />
+		<result property="mPassword" column="mPassword" />
+		<result property="qRef" column="qRef" />
+		<result property="qRe_level" column="qRe_level" />
+	</resultMap>
+	<insert id="qnainsert1" parameterType="qna">
+		insert into qna
+		values(ex_qnaCode.nextval,#{qSubject},#{qWriter},#{qContent},
+		'n',sysdate,0,0,#{mId},#{mPassword},ex_qnaCode,0)
+	</insert>
+	<select id="qnaList1" resultMap="qnaResult">
+		select * from qna order by	qRef desc, qRe_step
+	</select>
+	<select id="qnaForm1" parameterType="integer" resultType="qna">
+		select
+		* from qna where qnaCode=#{qnaCode}
+	</select>
+	<select id="getTotal2" parameterType="qna" resultType="int">
+		select count(*) from qna
+	</select>
+	<select id="list2" parameterType="qna" resultMap="qnaResult">
+		select * from (select a.*,rowNum rn from (
+		select * from qna order by
+		qRef desc, qRe_step) a)
+		where rn between #{startRow} and #{endRow}
+		<!-- select * from notice order by qnaCode desc -->
+	</select>
+	<select id="select2" parameterType="int" resultType="qna">
+		select * from qna where qnaCode = #{qnaCode}
+	</select>
+	<select id="maxNum2" resultType="int">
+		select nvl(max(qnaCode),0) + 1 from qna
+	</select>
+	<update id="updateStep2" parameterType="qna">
+		update qna set qRe_step = qRe_step + 1
+		where qRef = #{qRef} and qRe_step >
+		#{qRe_step}
+	</update>
+	<insert id="insert2" parameterType="qna">
+		insert into qna values (#{qnaCode},#{qSubject},
+		#{qWriter},#{qContent},'n',sysdate,#{qRe_step},0,
+		#{mId},#{mPassword},#{qRef},#{qRe_level})
+	</insert>
+	<update id="updateqReadcount2" parameterType="int">
+		update qna set qReadcount = qReadcount + 1 where qnaCode=#{qnaCode}
+	</update>
+	<update id="update2" parameterType="qna">
+		update qna set qSubject=#{qSubject}, qWriter=#{qWriter},
+		qContent=#{qContent} where qnaCode=#{qnaCode}
+	</update>
+	<delete id="delete2" parameterType="int">
+		update qna set qDel='y' where qnaCode=#{qnaCode}
+	</delete>
+</mapper>
+
+
+
